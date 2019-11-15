@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "616332748990",
+    "firebase_url": "https://cuentoscontarte.firebaseio.com",
+    "project_id": "cuentoscontarte",
+    "storage_bucket": "cuentoscontarte.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:616332748990:android:19b896b002d937023356ef",
+        "android_client_info": {
+          "package_name": "com.example.appcuentoscontarte"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "616332748990-uhs1onncsiharmnn14p0p8kkd0gkqrbe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.appcuentoscontarte",
+            "certificate_hash": "5baa0c5427f14228c037f94e7fec92c3e57384f7"
+          }
+        },
+        {
+          "client_id": "616332748990-q5l7t0s5jin6n99rvk12v8e59392ksh9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpKjYlctobFeu0qQRdS087eMEUBPshBog"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "616332748990-q5l7t0s5jin6n99rvk12v8e59392ksh9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

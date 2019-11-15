@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="3dp"
+    android:paddingBottom="3dp"
+    tools:context=".Inicio"
+    android:id="@+id/screen"
+    android:background="@android:color/darker_gray">
+    <!--android:background="@android:color/darker_gray">-->
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:background="@android:color/black">
+
+        <TextView
+            android:id="@+id/tvCuento"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="lop"
+            android:textColor="@android:color/white"
+            android:gravity="center"
+            android:textSize="12dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_weight="1.2"
+        android:layout_gravity="center"
+        android:layout_height="0dp">
+
+        <ImageButton
+            android:id="@+id/btnhojanueva"
+            android:contentDescription="@string/start_new"
+            android:layout_width="5dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:background="@drawable/hojanueva"
+            android:paddingRight="25dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"/>
+
+        <ImageButton
+            android:contentDescription="@string/save"
+            android:id="@+id/btnguardar"
+            android:layout_width="5dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight=".5"
+            android:background="@drawable/guardar"
+            android:paddingRight="25dp"
+            android:text="COMP"
+            android:visibility="visible" />
+
+        <ImageButton
+            android:contentDescription="@string/erase"
+            android:id="@+id/btnborrador"
+            android:layout_width="5dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".7"
+            android:background="@drawable/borrador"
+            android:paddingRight="25dp"/>
+
+
+        <ImageButton
+            android:contentDescription="@string/brush"
+            android:id="@+id/btntrazo"
+            android:layout_width="5dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:background="@drawable/lapizb"
+            android:paddingRight="25dp"/>
+
+        <ImageButton
+            android:id="@+id/btnreproducir"
+            android:layout_width="5dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:background="@drawable/volver"
+            android:paddingRight="40dp"
+            android:text="Reproduce"
+            android:visibility="visible" />
+
+        <ImageButton
+            android:id="@+id/btnsiguiente"
+            android:layout_width="5dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight=".8"
+            android:background="@drawable/flechasig"
+            android:text="SIGUIENTE" />
+
+    </LinearLayout>
+
+    <view
+        android:id="@+id/lienzo"
+        class="com.example.appcuentoscontarte.Lienzo"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_weight="7"
+        android:background="#FFFFFF" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center">
+
+        <!-- Top Row -->
+        <LinearLayout
+            android:id="@+id/paint_colors_1"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:layout_height="0dp">
+
+            <ImageButton
+                android:id="@+id/btnazul"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="2dp"
+                android:tag="#3F51B5"
+                android:background="#3F51B5"
+                android:contentDescription="@string/paint"
+                android:src="@drawable/paint" />
+
+            <ImageButton
+                android:id="@+id/btnceleste"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="2dp"
+                android:tag="#00BCD4"
+                android:background="#00BCD4"
+                android:contentDescription="@string/paint"
+                android:src="@drawable/paint"/>
+
+            <ImageButton
+
+                android:id="@+id/btnturquesa"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="2dp"
+                android:tag="#009688"
+                android:background="#009688"
+                android:contentDescription="@string/paint"
+                android:src="@drawable/paint"/>
+
+            <ImageButton
+
+                android:id="@+id/btnverde"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="2dp"
+                android:tag="#8BC34A"
+                android:background="#8BC34A"
+                android:contentDescription="@string/paint"
+                android:src="@drawable/paint" />
+
+            <ImageButton
+                android:id="@+id/btnverdefuerte"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="2dp"
+                android:tag="#4CAF50"
+                android:background="#4CAF50"
+                android:contentDescription="@string/paint"
+                android:src="@drawable/paint" />
+
+            <ImageButton
+                android:id="@+id/btnamarillo"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="2dp"
+                android:tag="#FFEB3B"
+                android:background="#FFEB3B"
+                android:contentDescription="@string/paint"
+                android:src="@drawable/paint" />
+
+        </LinearLayout>
+        <!-- Bottom Row -->
+        <LinearLayout
+            android:id="@+id/paint_colors_2"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:layout_height="0dp">
+
+            <ImageButton
+                android:id="@+id/btnmorado"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="2dp"
+                android:tag="#9C27B0"
+                android:background="#9C27B0"
+                android:contentDescription="@string/paint"
+                android:src="@drawable/paint" />
+
+            <ImageButton
+                android:id="@+id/btnrosa"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="2dp"
+                android:tag="#E91E63"
+                android:background="#E91E63"
+                android:contentDescription="@string/paint"
+                android:src="@drawable/paint"/>
+
+            <ImageButton
+                android:id="@+id/btnrojo"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="2dp"
+                android:tag="#F44336"
+                android:background="#F44336"
+                android:contentDescription="@string/paint"
+                android:src="@drawable/paint" />
+
+            <ImageButton
+                android:id="@+id/btnnaranja"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="2dp"
+                android:tag="#FF9800"
+                android:background="#FF9800"
+                android:contentDescription="@string/paint"
+                android:src="@drawable/paint" />
+
+            <ImageButton
+                android:id="@+id/btncafe"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="2dp"
+                android:tag="#8B674D"
+                android:background="#8B674D"
+                android:contentDescription="@string/paint"
+                android:src="@drawable/paint" />
+
+            <ImageButton
+                android:id="@+id/btnnegro"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="2dp"
+                android:tag="#353535"
+                android:background="#353535"
+                android:contentDescription="@string/paint"
+                android:src="@drawable/paint" />
+            <!--android:onClick="paintClicked" -->
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+
+    </LinearLayout>
+

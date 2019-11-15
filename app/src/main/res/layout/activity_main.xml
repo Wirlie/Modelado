@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/gradiente"
+            android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_margin="20dp">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/logocontarte"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="1" android:padding="10dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="35dp">
+
+
+                        <Button
+                            android:id="@+id/btncomenzar_menu"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:text="COMENZAR"
+                            android:textColor="#E96325"
+                            android:background="@drawable/lapiz2"
+                            android:textSize="25dp"
+                            android:layout_marginRight="30dp"
+                            android:layout_marginLeft="30dp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="20dp"/>
+
+                        <Button
+                            android:id="@+id/btninfo_menu"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/lapiz2"
+                            android:text="INFORMACIÓN"
+                            android:textColor="#E96325"
+                            android:layout_marginRight="30dp"
+                            android:layout_marginLeft="30dp"
+                            android:textSize="25dp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="20dp"/>
+
+                        <Button
+                            android:id="@+id/btnsalir_menu"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/lapiz2"
+                            android:text="SALIR"
+                            android:layout_marginRight="30dp"
+                            android:layout_marginLeft="30dp"
+                            android:textColor="#E96325"
+                            android:textSize="25dp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="20dp"/>
+                </LinearLayout>
+
+        </LinearLayout>
+</LinearLayout>
+
