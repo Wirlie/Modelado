@@ -4,24 +4,15 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.media.AsyncPlayer;
-import android.media.Image;
 import android.media.MediaPlayer;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
-import android.os.Handler;
-import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,14 +20,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.View;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,10 +32,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Inicio extends AppCompatActivity implements View.OnClickListener{
-
-    ImageButton negro, cafe, naranja,rojo, rosa, morado, amarillo,verdelimon, verde,turquesa, celeste, azul;
+    //region Declaracion de variables
+    ImageButton negro, cafe, naranja, rojo, rosa, morado, amarillo, verdelimon, verde, turquesa, celeste, azul;
     MediaPlayer mp;
-    ImageButton btnreproducir, btnsiguiente,btnborrador, btntrazo, btnhojanueva, btnguardar;
+    ImageButton btnreproducir, btnsiguiente, btnborrador, btntrazo, btnhojanueva, btnguardar;
     TextView tvCuento;
     private int current_frase;
 
@@ -74,14 +58,13 @@ public class Inicio extends AppCompatActivity implements View.OnClickListener{
     Lienzo lienzo;
 
     private ImageButton currPaint;
+    //endregion
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio);
-        /*Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar); */
-
+        //region Asignacion de variables
         paintLayout1 = (LinearLayout)findViewById(R.id.paint_colors_1);
         paintLayout2 = (LinearLayout)findViewById(R.id.paint_colors_2);
 
@@ -136,7 +119,8 @@ public class Inicio extends AppCompatActivity implements View.OnClickListener{
         btnborrador.setOnClickListener(this);
         btnhojanueva.setOnClickListener(this);
         btnguardar.setOnClickListener(this);
-
+        //endregion
+        
         recibirDato();
 
         sound = getResources().getIdentifier(cs, "raw", getPackageName());
@@ -151,6 +135,10 @@ public class Inicio extends AppCompatActivity implements View.OnClickListener{
         current_frase = 0;
         f = frases[current_frase];
         tvCuento.setText(f);
+
+        AsyncTask fin;
+        playmp iniAu = new playmp();
+        fin = iniAu.execute();
     }
 
     @Override
@@ -159,12 +147,27 @@ public class Inicio extends AppCompatActivity implements View.OnClickListener{
         if(mp.isPlaying()){
             mp.stop();
         }
+        AsyncTask exit = new playmp();
+        exit.cancel(true);
     }
-
-    private class playmp extends AsyncTask<Void, Integer, Void> {
+    //region Hilo secundario
+    private class playmp extends AsyncTask<Void, Integer, AsyncTask.Status> {
 
         @Override
-        protected Void doInBackground(Void... voids) {
+        protected void onPreExecute() {
+            btnsiguiente.setEnabled(false);
+        }
+
+        @Override
+        protected void onPostExecute(Status avoid) {
+            super.onPostExecute(avoid);
+            if (avoid == Status.FINISHED){
+                btnsiguiente.setEnabled(true);
+            }
+        }
+
+        @Override
+        protected Status doInBackground(Void... voids) {
             if(i == 0){
                 mp.start();
                 control++;
@@ -189,12 +192,14 @@ public class Inicio extends AppCompatActivity implements View.OnClickListener{
                     }
                 }
             }
-            return null;
+            current_frase++;
+            f = frases[current_frase];
+            return Status.FINISHED;
         }
     }
-// BITMAP
-
-
+    //endregion
+    //region Salvado de pantalla en galeria
+    // BITMAP
     private Bitmap getBitmapFromView(View view) {
         //Define a bitmap with the same size as the view
         Bitmap returnedBitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(),Bitmap.Config.ARGB_8888);
@@ -265,63 +270,25 @@ public class Inicio extends AppCompatActivity implements View.OnClickListener{
             Log.i("TAG", "There was an issue scanning gallery.");
         }
     }
-
+    //endregion
+    //region Recepcion de dato de clase anterior
     private void recibirDato(){
         Bundle extras = getIntent().getExtras();
         cs = extras.getString("cuentoseleccionado");
     }
-/*
-    public static  Bitmap viewToBitmap(View view,int width, int height){
-        Bitmap bitmap = Bitmap.createBitmap(width,height,Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        return bitmap;
-    }
-
-    public void startSave(){
-        FileOutputStream fileOutputStream=null;
-        File file=getDisc();
-        if(!file.exists() && !file.mkdir()){
-            Toast.makeText(getApplicationContext(),"No se puede guardar este directorio",Toast.LENGTH_SHORT).show();
-            return;
+    //endregion
+    //region Validacion de los colores
+    private void validacionColores(View v, String color){
+        color = v.getTag().toString();
+        lienzo.setColor(color);
+        if(v!=currPaint) {
+            ImageButton imgView = (ImageButton) v;
+            imgView.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
+            currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint));
+            currPaint = (ImageButton) v;
         }
-        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyymmsshhmmss");
-        String date= simpleDateFormat.format(new Date());
-        String name ="Img"+date+".jpg";
-        String file_name=file.getAbsolutePath()+"/"+name;
-        File new_file=new File(file_name);
-        try{
-            fileOutputStream=new FileOutputStream(new_file);
-            Bitmap bitmap = viewToBitmap(lienzo,lienzo.getWidth(),lienzo.getHeight());
-            bitmap.compress(Bitmap.CompressFormat.JPEG,100,fileOutputStream);
-            Toast.makeText(getApplicationContext(),"Save image sucess",Toast.LENGTH_SHORT).show();
-
-            fileOutputStream.flush();
-            fileOutputStream.close();
-
-
-        }
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        refreshGallery(new_file);
-
     }
-
-    public  void  refreshGallery(File file){
-        Intent intent=new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        intent.setData(Uri.fromFile(file));
-        sendBroadcast(intent);
-    }
-    private File getDisc(){
-        File file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
-
-        return  new File(file,"Image Demogg");
-
-    }
-
- */
+    //endregion
 
     @Override
     public void onClick(View v) {
@@ -329,7 +296,7 @@ public class Inicio extends AppCompatActivity implements View.OnClickListener{
         String color = null;
 
         switch (v.getId()) {
-
+            //region btnhojanueva
             case R.id.btnhojanueva:
                 AlertDialog.Builder newDialog = new AlertDialog.Builder(this);
                 newDialog.setTitle("Nuevo Dibujo");
@@ -351,10 +318,9 @@ public class Inicio extends AppCompatActivity implements View.OnClickListener{
                     }
                 });
                 newDialog.show();
-
-
                 break;
-
+            //endregion
+            //region btnguardar
             case R.id.btnguardar:
 
                 AlertDialog.Builder salvarDibujo = new AlertDialog.Builder(this);
@@ -390,7 +356,8 @@ public class Inicio extends AppCompatActivity implements View.OnClickListener{
                 });
                 salvarDibujo.show();
                 break;
-
+                //endregion
+            //region btnborrador
             case R.id.btnborrador: /*Borrador*/
                 final Dialog borrarpunto = new Dialog(this);
                 borrarpunto.setTitle("Tamaño del borrado: ");
@@ -429,7 +396,8 @@ public class Inicio extends AppCompatActivity implements View.OnClickListener{
                 });
                 borrarpunto.show();
                 break;
-
+                //endregion
+            //region btntrazo
             case R.id.btntrazo: /* Tamaño de punto*/
                 final Dialog tamanopunto = new Dialog(this);
                 // Toast.makeText(getApplicationContext(), "Presiono trazo", Toast.LENGTH_LONG).show();
@@ -471,6 +439,8 @@ public class Inicio extends AppCompatActivity implements View.OnClickListener{
                 });
                 tamanopunto.show();
                 break;
+                //endregion
+            //region btnreproducir
             case R.id.btnreproducir:
 //                String naudio = String.valueOf(current_audio);
 //                Toast.makeText(getApplicationContext(), naudio, Toast.LENGTH_LONG).show();
@@ -480,162 +450,71 @@ public class Inicio extends AppCompatActivity implements View.OnClickListener{
 //                Inicio.this.startActivity(fin);
 //                Inicio.this.finish();
                 break;
-
+                //endregion
+            //region btnsiguiente
             case R.id.btnsiguiente:
                 playmp nextau = new playmp();
-                nextau.execute();
-//                f = frases[current_frase];
-//                tvCuento.setText(f);
-//                if(current_frase == 0) {
-//                    current_frase = 0;
-//                    current_frase++;
-//                }
-//                else{
-//                    if(!mp.isPlaying()){
-//                        current_frase++;
-//                    }
-//                }
-                break;
-
+                AsyncTask fin;
+                nextau.onPreExecute();
+                if(btnsiguiente.isEnabled()){
+                    break;
+                }
+                else{
+                    fin = nextau.execute();
+                    nextau.onPostExecute(fin.getStatus());
+                    tvCuento.setText(f);
+                    break;
+                }
+                //endregion
+            //region Botones de seleccion de colores
             case R.id.btnnegro:
-                color = v.getTag().toString();
-                lienzo.setColor(color);
-
-                if(v!=currPaint) {
-
-                    ImageButton imgView = (ImageButton) v;
-                    imgView.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
-                    currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint));
-                    currPaint = (ImageButton) v;
-                }
-
-
-
+                validacionColores(v, color);
                 break;
+                
             case R.id.btncafe:
-                color = v.getTag().toString();
-                lienzo.setColor(color);
-
-                if(v!=currPaint) {
-
-                ImageButton imgView = (ImageButton) v;
-                imgView.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
-                currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint));
-                currPaint = (ImageButton) v;
-            }
+                validacionColores(v, color);
                 break;
+                
             case R.id.btnnaranja:
-                color = v.getTag().toString();
-                lienzo.setColor(color);
-
-                if(v!=currPaint) {
-
-                    ImageButton imgView = (ImageButton) v;
-                    imgView.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
-                    currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint));
-                    currPaint = (ImageButton) v;
-                }
+                validacionColores(v, color);
                 break;
+                
             case R.id.btnrojo:
-                color = v.getTag().toString();
-                lienzo.setColor(color);
-
-                if(v!=currPaint) {
-
-                    ImageButton imgView = (ImageButton) v;
-                    imgView.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
-                    currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint));
-                    currPaint = (ImageButton) v;
-                }
+                validacionColores(v, color);
                 break;
+                
             case R.id.btnrosa:
-                color = v.getTag().toString();
-                lienzo.setColor(color);
-                if(v!=currPaint) {
-
-                    ImageButton imgView = (ImageButton) v;
-                    imgView.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
-                    currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint));
-                    currPaint = (ImageButton) v;
-                }
+                validacionColores(v, color);
                 break;
+                
             case R.id.btnmorado:
-                color = v.getTag().toString();
-                lienzo.setColor(color);
-                if(v!=currPaint) {
-
-                    ImageButton imgView = (ImageButton) v;
-                    imgView.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
-                    currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint));
-                    currPaint = (ImageButton) v;
-                }
+                validacionColores(v, color);
                 break;
+                
             case R.id.btnamarillo:
-                color = v.getTag().toString();
-                lienzo.setColor(color);
-                if(v!=currPaint) {
-
-                    ImageButton imgView = (ImageButton) v;
-                    imgView.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
-                    currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint));
-                    currPaint = (ImageButton) v;
-                }
+                validacionColores(v, color);
                 break;
+                    
             case R.id.btnverde:
-                color = v.getTag().toString();
-                lienzo.setColor(color);
-                if(v!=currPaint) {
-
-                    ImageButton imgView = (ImageButton) v;
-                    imgView.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
-                    currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint));
-                    currPaint = (ImageButton) v;
-                }
+                validacionColores(v, color);
                 break;
+                
             case R.id.btnverdefuerte:
-                color = v.getTag().toString();
-                lienzo.setColor(color);
-                if(v!=currPaint) {
-
-                    ImageButton imgView = (ImageButton) v;
-                    imgView.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
-                    currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint));
-                    currPaint = (ImageButton) v;
-                }
+                validacionColores(v, color);
                 break;
+                
             case R.id.btnturquesa:
-                color = v.getTag().toString();
-                lienzo.setColor(color);
-                if(v!=currPaint) {
-
-                    ImageButton imgView = (ImageButton) v;
-                    imgView.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
-                    currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint));
-                    currPaint = (ImageButton) v;
-                }
+                validacionColores(v, color);
                 break;
+                
             case R.id.btnceleste:
-                color = v.getTag().toString();
-                lienzo.setColor(color);
-                if(v!=currPaint) {
-
-                    ImageButton imgView = (ImageButton) v;
-                    imgView.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
-                    currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint));
-                    currPaint = (ImageButton) v;
-                }
+                validacionColores(v, color);
                 break;
+                
             case R.id.btnazul:
-                color = v.getTag().toString();
-                lienzo.setColor(color);
-                if(v!=currPaint) {
-
-                    ImageButton imgView = (ImageButton) v;
-                    imgView.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
-                    currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint));
-                    currPaint = (ImageButton) v;
-                }
+                validacionColores(v, color);
                 break;
+             //endregion   
             default:
                 break;
 

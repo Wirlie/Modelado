@@ -13,16 +13,16 @@
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity android:name=".Final"></activity>
-        <activity android:name=".Registro">
+        <activity android:name=".Registro"></activity>
+        <activity android:name=".InicioSesion">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".InicioSesion"></activity>
         <activity android:name=".Compartir" />
         <activity android:name=".Intermedio" />
         <activity android:name=".Inicio" />
