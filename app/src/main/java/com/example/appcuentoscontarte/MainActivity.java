@@ -35,8 +35,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent comenzar = new Intent(MainActivity.this, Intermedio.class);
                 MainActivity.this.startActivity(comenzar);
                 MainActivity.this.finish();
-                //Toast.makeText(getApplicationContext(), "Se presiono", Toast.LENGTH_LONG).show();
-                //MainActivity.this.onBackPressed();
             }
         });
 
@@ -51,9 +49,9 @@ public class MainActivity extends AppCompatActivity {
         btninfo_menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Toast.makeText(getApplicationContext(), "Se presiono INFO", Toast.LENGTH_LONG).show();
-
+                Intent info = new Intent(MainActivity.this, Info.class);
+                MainActivity.this.startActivity(info);
+                MainActivity.this.finish();
             }
         });
     }

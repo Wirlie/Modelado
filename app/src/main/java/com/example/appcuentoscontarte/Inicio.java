@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -135,6 +136,9 @@ public class Inicio extends AppCompatActivity implements View.OnClickListener{
         current_frase = 0;
         f = frases[current_frase];
         tvCuento.setText(f);
+        AsyncTask fin;
+        playmp iniAu = new playmp();
+        fin = iniAu.execute();
     }
 
     @Override
@@ -143,6 +147,8 @@ public class Inicio extends AppCompatActivity implements View.OnClickListener{
         if(mp.isPlaying()){
             mp.stop();
         }
+        startActivity(new Intent(this, Intermedio.class));
+        finish();
     }
 
     private class playmp extends AsyncTask<Void, Integer, Void> {

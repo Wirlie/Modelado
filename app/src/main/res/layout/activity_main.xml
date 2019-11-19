@@ -72,19 +72,6 @@
                             android:textSize="25dp"
                             android:textStyle="bold" />
 
-                        <Button
-                            android:id="@+id/btninfo_menu"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_marginRight="1"
-                            android:background="@drawable/lapiz2"
-                            android:text="Información"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                            android:textColor="#E96325"
-                            android:textSize="25sp"
-                            android:visibility="visible"
-                            tools:visibility="visible" />
-
                 </LinearLayout>
 
         </LinearLayout>
