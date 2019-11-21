@@ -13,21 +13,21 @@
     <!--android:background="@android:color/darker_gray">-->
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
+        android:layout_height="88dp"
         android:layout_weight="1"
-        android:layout_height="0dp"
-        android:background="@android:color/black">
+        android:background="@android:color/black"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/tvCuento"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="lop"
             android:textColor="@android:color/white"
-            android:gravity="center"
-            android:textSize="12dp" />
+            android:textSize="30sp" />
 
     </LinearLayout>
 
