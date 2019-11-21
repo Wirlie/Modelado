@@ -15,7 +15,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity android:name=".Info"></activity>
-        <activity android:name=".activity_info" />
         <activity android:name=".Final" />
         <activity android:name=".Registro" />
         <activity android:name=".InicioSesion" />
@@ -25,7 +24,6 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

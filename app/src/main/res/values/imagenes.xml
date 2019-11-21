@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="caperucitaima">
+        <item>c2</item>
+        <item>c3</item>
+    </array>
+    <array name="pollitocuriosoima">
+        <item>p1</item>
+        <item>p2</item>
+        <item>p3</item>
+        <item>p4</item>
+    </array>
+
+</resources>
