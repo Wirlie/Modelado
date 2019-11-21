@@ -194,6 +194,10 @@ public class Inicio extends AppCompatActivity implements View.OnClickListener{
                 if(currentiempo == tiempos[i]){
                     if(control == tiempos.length){
                         sw = false;
+                        //debe terminar el cuento
+                        Intent intent = new Intent(Inicio.this, Intermedio.class);
+                        startActivity(intent);
+                        finish();
                         break;
                     }
                     else{
