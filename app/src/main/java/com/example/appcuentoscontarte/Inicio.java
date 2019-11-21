@@ -26,6 +26,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.appcuentoscontarte.controladores.ManagerCuento;
+import com.example.appcuentoscontarte.controladores.TipoCuento;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -59,6 +62,8 @@ public class Inicio extends AppCompatActivity implements View.OnClickListener{
     Lienzo lienzo;
 
     private ImageButton currPaint;
+
+    private ManagerCuento managerCuento;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -198,6 +203,15 @@ public class Inicio extends AppCompatActivity implements View.OnClickListener{
                 }
             }
             current_frase++;
+
+            if(current_frase == frases.length) {
+                //debe terminar el cuento
+                Intent intent = new Intent(Inicio.this, Intermedio.class);
+                startActivity(intent);
+                finish();
+                return Status.FINISHED;
+            }
+
             f = frases[current_frase];
             return Status.FINISHED;
         }
@@ -279,6 +293,12 @@ public class Inicio extends AppCompatActivity implements View.OnClickListener{
     private void recibirDato(){
         Bundle extras = getIntent().getExtras();
         cs = extras.getString("cuentoseleccionado");
+
+        if(cs.equals("caperucita")) {
+            managerCuento = new ManagerCuento(TipoCuento.CAPERUCITA);
+        } else if(cs.equals("pollitocurioso")) {
+            managerCuento = new ManagerCuento(TipoCuento.POLLITO_CURIOSO);
+        }
     }
 
     @Override
@@ -447,10 +467,19 @@ public class Inicio extends AppCompatActivity implements View.OnClickListener{
                     break;
                 }
                 else{
-                    //reiniciar lo pintado
-                    lienzo.NuevoDibujo();
+                    //siguiente paso...
+                    if(managerCuento.cambiarImagen()) {
+                        if(managerCuento.terminar()) {
+                            //debe terminar el cuento
+                            Intent intent = new Intent(this, Intermedio.class);
+                            startActivity(intent);
+                            finish();
+                            break;
+                        }
 
-                    if(j < ima.length) {
+                        //reiniciar lo pintado
+                        lienzo.NuevoDibujo();
+
                         prueba = getResources().getIdentifier(ima[j], "drawable", getPackageName());
                         lienzo.setBackground(getResources().getDrawable(prueba));
                         j++;

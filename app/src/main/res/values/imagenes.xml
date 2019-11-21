@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="caperucitaima">
+        <item>c1</item>
         <item>c2</item>
         <item>c3</item>
+        <item>c4</item>
+        <item>c5</item>
+        <item>c6</item>
+        <item>c7</item>
     </array>
     <array name="pollitocuriosoima">
         <item>p1</item>
