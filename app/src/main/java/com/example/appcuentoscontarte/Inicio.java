@@ -447,9 +447,15 @@ public class Inicio extends AppCompatActivity implements View.OnClickListener{
                     break;
                 }
                 else{
-                    prueba = getResources().getIdentifier(ima[j], "drawable", getPackageName());
-                    lienzo.setBackground(getResources().getDrawable(prueba));
-                    j++;
+                    //reiniciar lo pintado
+                    lienzo.NuevoDibujo();
+
+                    if(j < ima.length) {
+                        prueba = getResources().getIdentifier(ima[j], "drawable", getPackageName());
+                        lienzo.setBackground(getResources().getDrawable(prueba));
+                        j++;
+                    }
+
                     fin = nextau.execute();
                     nextau.onPostExecute(fin.getStatus());
                     tvCuento.setText(f);
